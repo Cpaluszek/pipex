@@ -6,11 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/14 12:47:57 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:50:01 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# include "libft.h"
 
 #endif

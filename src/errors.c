@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 09:27:41 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 09:30:15 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 10:09:56 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,24 @@ void	argument_error(void)
 	exit(1);
 }
 
+// Error while accessing to a file
 void	file_error(void)
 {
-	perror("Error");
+	perror("File error");
 	exit(2);
 }
+
+// Error while executing a program
+void	program_error(void)
+{
+	perror("Program error");
+	exit(3);
+}
+
+// Error while allocating memory
+void	allocation_error(void)
+{
+	ft_printf_fd(STDERR_FILENO, "Allocation error\n");
+	exit(4);
+}
+

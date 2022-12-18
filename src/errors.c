@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 09:30:40 by cpalusze         ###   ########.fr       */
+/*   Created: 2022/12/18 09:27:41 by cpalusze          #+#    #+#             */
+/*   Updated: 2022/12/18 09:30:15 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// Note: print on stderr ?
-int	main(int argc, char **argv)
+void	argument_error(void)
 {
-	int	file1;
+	ft_printf_fd(STDERR_FILENO,
+		"Invalid parameters:\n./pipex file1 cmd1 cmd2 file2\n");
+	exit(1);
+}
 
-	if (argc != 5)
-		argument_error();
-	file1 = open(argv[1], O_RDONLY);
-	if (file1 == -1)
-		file_error();
-	// Get command 1
-
-	// Exec command 1
+void	file_error(void)
+{
+	perror("Error");
+	exit(2);
 }

@@ -9,7 +9,8 @@ HEADERS			:=	inc
 HEADERS_FILES	:=	pipex.h
 
 SRC_DIR			:=	src
-SRC_FILES		:=	pipex.c
+SRC_FILES		:=	pipex.c \
+					errors.c
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

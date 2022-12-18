@@ -10,6 +10,7 @@ HEADERS_FILES	:=	pipex.h
 
 SRC_DIR			:=	src
 SRC_FILES		:=	pipex.c \
+					exec.c \
 					find_program.c \
 					errors.c \
 					utils.c

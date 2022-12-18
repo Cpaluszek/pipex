@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 10:51:18 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 10:55:20 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 // Todo: find a better file name
 
 // Note: check env for null ?
-// Todo: check if prog_name contains a 
+// Todo: check if prog_name contains a  /
 // Check if we can find the program using env
 // 		access: F_OK + X_OK => program exist and can be executed
 
@@ -41,7 +41,6 @@ char	*find_program(char *prog_name, char **env)
 	return (prog_path);
 }
 
-// Todo: free join
 char	*search_in_paths(char **paths, char *prog_name)
 {
 	int		i;
@@ -53,10 +52,7 @@ char	*search_in_paths(char **paths, char *prog_name)
 	{
 		join = ft_strjoin(paths[i], prog_name);
 		if (access(join, F_OK | X_OK) == 0)
-		{
 			prog_path = ft_strdup(join);
-			printf("We found: %s\n", join);
-		}
 		free(join);
 		i++;
 	}

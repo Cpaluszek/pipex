@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 10:47:53 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 10:56:22 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "libft.h"
 
-// Todo: look for static variables
+// Todo: look for static functions
 
 /* Find Program	*/
 char	*find_program(char *prog_name, char **env);

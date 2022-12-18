@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 15:15:58 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:27:06 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static char	**get_paths(char **env)
 			break ;
 		i++;
 	}
+	if (i == 0)
+		env_error();
 	paths = ft_split(path_env_var, ':');
 	return (paths);
 }

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 11:17:30 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:24:37 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,38 @@ static char	*search_in_paths(char **paths, char *prog_name);
 // Todo: find a better file name
 
 // Note: check env for null ?
-// Todo: check if prog_name contains a  /
-// Check if we can find the program using env
-// 		access: F_OK + X_OK => program exist and can be executed
-
-char	*find_program(char *prog_name, char **env)
+// Note: join in temp to free previous?
+char	**parse_program(char *prog_name, char **env)
 {
 	char	**paths;
-	char	*prog_path;
-	int		alloc_prog_name;
+	char	**prog_with_args;
 
-	alloc_prog_name = 0;
 	paths = get_paths(env);
 	if (paths == NULL)
 		allocation_error();
-	if (ft_strchr(prog_name, '/') == NULL)
+	prog_with_args = ft_split(prog_name, ' ');
+	if (prog_with_args == NULL)
 	{
-		prog_name = ft_strjoin("/", prog_name);
-		if (prog_name == NULL)
+		free_split(paths);
+		allocation_error();
+	}
+	if (ft_strchr(prog_with_args[0], '/') == NULL)
+	{
+		prog_with_args[0] = ft_strjoin("/", prog_with_args[0]);
+		if (prog_with_args[0] == NULL)
 		{
 			free_split(paths);
+			free_split(prog_with_args);
 			allocation_error();
 		}
-		alloc_prog_name = 1;
 	}
-	prog_path = search_in_paths(paths, prog_name);
-	if (alloc_prog_name)
-		free(prog_name);
-	return (prog_path);
+	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
+	return (prog_with_args);
 }
 
+// Check if we can find the program using env
+// 		access: F_OK + X_OK => program exist and can be executed
+// Note: is malloc protection on join needed?
 static char	*search_in_paths(char **paths, char *prog_name)
 {
 	int		i;
@@ -64,6 +66,7 @@ static char	*search_in_paths(char **paths, char *prog_name)
 		i++;
 	}
 	free_split(paths);
+	free(prog_name);
 	return (prog_path);
 }
 

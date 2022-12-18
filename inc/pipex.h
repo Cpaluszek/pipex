@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 10:56:22 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 10:58:43 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 
 /* Find Program	*/
 char	*find_program(char *prog_name, char **env);
-char	**get_paths(char **env);
-char	*search_in_paths(char **paths, char *prog_name);
 
 /*	Errors	*/
 void	argument_error(void);

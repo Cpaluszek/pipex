@@ -6,11 +6,15 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 10:55:20 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/18 11:17:30 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static char	**get_paths(char **env);
+static char	*search_in_paths(char **paths, char *prog_name);
+
 // Todo: find a better file name
 
 // Note: check env for null ?
@@ -22,9 +26,9 @@ char	*find_program(char *prog_name, char **env)
 {
 	char	**paths;
 	char	*prog_path;
-	int		joined_prog_name;
+	int		alloc_prog_name;
 
-	joined_prog_name = 0;
+	alloc_prog_name = 0;
 	paths = get_paths(env);
 	if (paths == NULL)
 		allocation_error();
@@ -32,16 +36,19 @@ char	*find_program(char *prog_name, char **env)
 	{
 		prog_name = ft_strjoin("/", prog_name);
 		if (prog_name == NULL)
+		{
+			free_split(paths);
 			allocation_error();
-		joined_prog_name = 1;
+		}
+		alloc_prog_name = 1;
 	}
 	prog_path = search_in_paths(paths, prog_name);
-	if (joined_prog_name)
+	if (alloc_prog_name)
 		free(prog_name);
 	return (prog_path);
 }
 
-char	*search_in_paths(char **paths, char *prog_name)
+static char	*search_in_paths(char **paths, char *prog_name)
 {
 	int		i;
 	char	*prog_path;
@@ -60,7 +67,7 @@ char	*search_in_paths(char **paths, char *prog_name)
 	return (prog_path);
 }
 
-char	**get_paths(char **env)
+static char	**get_paths(char **env)
 {
 	char	**paths;
 	char	*path_env_var;

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:32:04 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:42:11 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,32 @@ char	**parse_program(char *prog_name, char **env)
 	char	**prog_with_args;
 	char	*temp;
 
-	paths = get_paths(env);
-	if (paths == NULL)
-		print_error(ALLOC_ERROR, 4);
 	prog_with_args = ft_split(prog_name, ' ');
 	if (prog_with_args == NULL)
+		print_error_exit(ALLOC_ERROR, 4);
+	// Test if we need to search in path and cat
+	// Note: custom print function?
+	if (ft_strchr(prog_with_args[0], '/') != NULL)
 	{
-		free_split(paths);
-		print_error(ALLOC_ERROR, 4);
+		if (access(prog_with_args[0], F_OK | X_OK) == 0)
+			return (prog_with_args);
+		ft_printf_fd(STDERR_FILENO, prog_with_args[0]);
+		print_error_exit(": Can't be accessed\n", 6);
+		free_split(prog_with_args);
 	}
-	if (ft_strchr(prog_with_args[0], '/') == NULL)
+	temp = ft_strjoin("/", prog_with_args[0]);
+	free(prog_with_args[0]);
+	prog_with_args[0] = temp;
+	if (prog_with_args[0] == NULL)
 	{
-		temp = ft_strjoin("/", prog_with_args[0]);
-		free(prog_with_args[0]);
-		prog_with_args[0] = temp;
-		if (prog_with_args[0] == NULL)
-		{
-			free_split(paths);
-			free_split(prog_with_args);
-			print_error(ALLOC_ERROR, 4);
-		}
+		free_split(prog_with_args);
+		print_error_exit(ALLOC_ERROR, 4);
+	}
+	paths = get_paths(env);
+	if (paths == NULL)
+	{
+		free_split(prog_with_args);
+		print_error_exit(ALLOC_ERROR, 4);
 	}
 	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
 	return (prog_with_args);
@@ -50,7 +56,7 @@ char	**parse_program(char *prog_name, char **env)
 
 // Check if we can find the program using env
 // 		access: F_OK + X_OK => program exist and can be executed
-// Note: is malloc protection on join needed?
+// Note: is malloc protection on join needed? or dup?
 static char	*search_in_paths(char **paths, char *prog_name)
 {
 	int		i;
@@ -81,13 +87,16 @@ static char	**get_paths(char **env)
 	i = 0;
 	while (env[i])
 	{
-		path_env_var = ft_strnstr(env[i], "PATH=", ft_strlen(env[i]));
+		path_env_var = ft_strnstr(env[i], PATH_PREFIX, ft_strlen(env[i]));
 		if (path_env_var != NULL)
+		{
+			path_env_var += ft_strlen(PATH_PREFIX);
 			break ;
+		}
 		i++;
 	}
 	if (i == 0)
-		print_error(ENV_ERROR, 5);
+		print_error_exit(ENV_ERROR, 5);
 	paths = ft_split(path_env_var, ':');
 	return (paths);
 }

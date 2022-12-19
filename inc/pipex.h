@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:22:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:40:40 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define ENV_ERROR		"Environment error\n"
 # define FILE_ERROR		"File error"
 
+# define PATH_PREFIX	"PATH="
+
 /* Find Program	*/
 char	**parse_program(char *prog_name, char **env);
 
@@ -32,8 +34,8 @@ char	**parse_program(char *prog_name, char **env);
 void	execute_program(int input_fd, char **prog_with_args, char **env);
 
 /*	Errors	*/
-void	print_error(char *str, int err_code);
-void	print_sys_error(char *str, int err_code);
+void	print_error_exit(char *str, int err_code);
+void	print_sys_error_exit(char *str, int err_code);
 
 /*	Utils	*/
 void	free_split(char **split);

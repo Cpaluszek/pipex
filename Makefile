@@ -29,7 +29,7 @@ OBJS			:=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.o)
 # Compiler options
 CC				:=	cc
 CC_FLAGS		:=	-Wextra -Werror -Wall -O2
-DEBUG_FLAG		:=	-ggdb3
+DEBUG_FLAG		:=	-g3 #-fsanitize=address
 
 MAKE			:=	make -C
 

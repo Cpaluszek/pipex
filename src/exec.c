@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:03:45 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:40:40 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_program(int input_fd, char **prog_with_args, char **env)
 		printf("Child process start\n");
 		exec_ret = execve(prog_with_args[0], prog_with_args, env);
 		if (exec_ret == -1)
-			print_sys_error("Execution error", 3);
+			print_sys_error_exit("Execution error", 3);
 	}
 	else
 	{

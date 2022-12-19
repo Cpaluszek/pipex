@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:13:30 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:04:16 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
 # define PATH_ERROR		"PATH not found\n"
 # define FILE_ERROR		"File error"
 # define FORK_ERROR		"Fork error"
-# define DUP2_ERROR		"dup2() error"
-# define CLOSE_ERROR	"Error while closing file"
+# define DUP2_ERROR		"Error duplicating file descriptor"
+# define CLOSE_ERROR	"Error closing file descriptor"
+# define EXEC_ERROR		"Error executing program"
 
 # define PATH_PREFIX	"PATH="
 
@@ -39,7 +40,7 @@ void	execute_program(int input_fd, char **prog_with_args, char **env);
 
 /*	Errors	*/
 void	print_error_exit(char *str, int err_code);
-void	print_sys_error_exit(char *str, int err_code);
+void	print_perror_exit(char *str, int err_code);
 
 /*	Utils	*/
 void	free_split(char **split);

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 11:58:24 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:11:58 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	execute_program(int input_fd, char **prog_with_args, char **env)
 	int	exec_ret;
 
 	pid = fork();
+	if (pid == -1)
+	{
+		free_split(prog_with_args);
+		print_sys_error_exit(FORK_ERROR, 7);	
+	}	
 	if (pid == 0)
 	{
 		dup2(input_fd, STDIN_FILENO);

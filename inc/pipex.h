@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:05:32 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:12:12 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 
 // Todo: look for static functions
 // Todo: header file for errors?
+// Todo: define errors codes
 # define ARG_ERROR		"Invalid parameters:\n./pipex file1 cmd1 cmd2 file2\n"
 # define ALLOC_ERROR	"Allocation error\n"
 # define PATH_ERROR		"PATH not found\n"
 # define FILE_ERROR		"File error"
+# define FORK_ERROR		"Fork error"
 
 # define PATH_PREFIX	"PATH="
 

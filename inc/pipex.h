@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 16:58:24 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:52:20 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define FORK_ERROR		"Fork error"
 # define DUP2_ERROR		"Error duplicating file descriptor"
 # define CLOSE_ERROR	"Error closing file descriptor"
-# define EXEC_ERROR		"Error executing program"
 # define PIPE_ERROR		"Error creating pipe"
 
 # define PATH_PREFIX	"PATH="
@@ -54,6 +53,7 @@ void	execute_second_program(t_pipex *pipex);
 /*	Errors	*/
 void	print_error_exit(char *str);
 void	print_perror_exit(char *str);
+void	file_error_exit(char *str);
 
 /*	Utils	*/
 void	parent_free_and_close(t_pipex *pipex);

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:02:16 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:59:55 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
-static void	alloc_error(char **split);
+static void	alloc_error_exit(char **split);
 
 char	**parse_program(char *prog_name, t_pipex *pipex)
 {
@@ -30,7 +30,7 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 	free(prog_with_args[0]);
 	prog_with_args[0] = temp;
 	if (prog_with_args[0] == NULL)
-		alloc_error(prog_with_args);
+		alloc_error_exit(prog_with_args);
 	prog_with_args[0] = search_in_paths(pipex->paths, prog_with_args[0]);
 	return (prog_with_args);
 }
@@ -58,7 +58,7 @@ char	**get_paths(char **env)
 	return (paths);
 }
 
-static void	alloc_error(char **split)
+static void	alloc_error_exit(char **split)
 {
 	free_split(split);
 	print_error_exit(ALLOC_ERROR);
@@ -83,6 +83,7 @@ static char	*search_in_paths(char **paths, char *prog_name)
 	char	*join;
 
 	i = 0;
+	prog_path = NULL;
 	while (paths[i])
 	{
 		join = ft_strjoin(paths[i], prog_name);
@@ -90,6 +91,11 @@ static char	*search_in_paths(char **paths, char *prog_name)
 			prog_path = ft_strdup(join);
 		free(join);
 		i++;
+	}
+	if (prog_path == NULL)
+	{
+		ft_printf_fd(STDERR_FILENO, "%s: ", prog_name + 1);
+		ft_printf_fd(STDERR_FILENO, "Command not found\n");
 	}
 	free(prog_name);
 	return (prog_path);

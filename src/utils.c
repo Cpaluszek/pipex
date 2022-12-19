@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:00:43 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:28:57 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_split(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	while (split[i] != NULL)
 		free(split[i++]);
 	free(split);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_program.c                                     :+:      :+:    :+:   */
+/*   parse_program.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:01:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:02:46 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
 static void	alloc_error(char **split);
 
-// Todo: find a better file name
 // Note: custom print function for access error?
 char	**parse_program(char *prog_name, char **env)
 {

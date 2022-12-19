@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:10:13 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:21:21 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,18 @@
 
 # define PATH_PREFIX	"PATH="
 
+typedef struct s_args
+{
+	char	**first_cmd;
+	char	**second_cmd;
+}	t_args;
+
 /* Find Program	*/
 char	**parse_program(char *prog_name, char **env);
 
 /*	Exec	*/
-void	execute_program(int input_fd, char **prog_with_args, char **env);
+void	execute_first_program(int input_fd, char **prog_with_args, char **env);
+void	execute_second_program(char *output, char **prog_with_args, char **env);
 
 /*	Errors	*/
 void	print_error_exit(char *str);

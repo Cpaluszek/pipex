@@ -3,3 +3,4 @@ pipex
 *.dSYM/
 .vscode/
 *.txt
+out

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:55:29 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:57:59 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,29 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 		alloc_error(prog_with_args);
 	prog_with_args[0] = search_in_paths(pipex->paths, prog_with_args[0]);
 	return (prog_with_args);
+}
+
+char	**get_paths(char **env)
+{
+	char	**paths;
+	char	*path_env_var;
+	int		i;
+
+	i = 0;
+	while (env[i])
+	{
+		path_env_var = ft_strnstr(env[i], PATH_PREFIX, ft_strlen(env[i]));
+		if (path_env_var != NULL)
+		{
+			path_env_var += ft_strlen(PATH_PREFIX);
+			break ;
+		}
+		i++;
+	}
+	if (i == 0)
+		print_error_exit(PATH_ERROR);
+	paths = ft_split(path_env_var, ':');
+	return (paths);
 }
 
 static void	alloc_error(char **split)
@@ -71,27 +94,4 @@ static char	*search_in_paths(char **paths, char *prog_name)
 	free_split(paths);
 	free(prog_name);
 	return (prog_path);
-}
-
-char	**get_paths(char **env)
-{
-	char	**paths;
-	char	*path_env_var;
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		path_env_var = ft_strnstr(env[i], PATH_PREFIX, ft_strlen(env[i]));
-		if (path_env_var != NULL)
-		{
-			path_env_var += ft_strlen(PATH_PREFIX);
-			break ;
-		}
-		i++;
-	}
-	if (i == 0)
-		print_error_exit(PATH_ERROR);
-	paths = ft_split(path_env_var, ':');
-	return (paths);
 }

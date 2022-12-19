@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 16:47:52 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:58:37 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // Creating a child process to execute a program
 // Note: search about waitpid parameters
 // Note: free alls cmd in case of error ?
-// Todo: create a free struct function
 void	execute_first_program(t_pipex *pipex)
 {
 	pipex->pid1 = fork();

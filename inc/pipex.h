@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 14:26:05 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:58:24 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 # include "libft.h"
 
-// Todo: look for static functions
-// Todo: header file for errors?
-// Todo: define errors codes
 # define ARG_ERROR		"Invalid parameters:\n./pipex file1 cmd1 cmd2 file2\n"
 # define ALLOC_ERROR	"Allocation error\n"
 # define PATH_ERROR		"PATH not found\n"
@@ -33,7 +30,6 @@
 
 # define PATH_PREFIX	"PATH="
 
-// Note: t_pid in struct ?
 typedef struct s_pipex
 {
 	char	**first_cmd;
@@ -61,6 +57,7 @@ void	print_perror_exit(char *str);
 
 /*	Utils	*/
 void	parent_free_and_close(t_pipex *pipex);
+void	close_pipes(t_pipex *pipex);
 void	free_split(char **split);
 
 #endif

@@ -6,17 +6,12 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 16:52:07 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:55:40 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdlib.h>
 
-static void	close_pipes(t_pipex *pipex);
-
-// Todo: split paths 2 time not optimal
-// add paths var in pipex struct
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
@@ -43,27 +38,4 @@ int	main(int argc, char **argv, char **env)
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
 	parent_free_and_close(&pipex);
-}
-
-static void	close_pipes(t_pipex *pipex)
-{
-	if (close(pipex->pipe[0]) == -1)
-		print_perror_exit(CLOSE_ERROR);
-	if (close(pipex->pipe[1]) == -1)
-		print_perror_exit(CLOSE_ERROR);
-}
-
-// Todo: move to another file to not include pipex.h everywhere
-void	parent_free_and_close(t_pipex *pipex)
-{
-	if (pipex->paths)
-		free_split(pipex->paths);
-	if (pipex->first_cmd)
-		free_split(pipex->first_cmd);
-	if (pipex->second_cmd)
-		free_split(pipex->second_cmd);
-	if (close(pipex->in_file) == -1)
-		print_perror_exit(CLOSE_ERROR);
-	if (close(pipex->out_file) == -1)
-		print_perror_exit(CLOSE_ERROR);
 }

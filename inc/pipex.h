@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 10:40:40 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:05:32 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // Todo: header file for errors?
 # define ARG_ERROR		"Invalid parameters:\n./pipex file1 cmd1 cmd2 file2\n"
 # define ALLOC_ERROR	"Allocation error\n"
-# define ENV_ERROR		"Environment error\n"
+# define PATH_ERROR		"PATH not found\n"
 # define FILE_ERROR		"File error"
 
 # define PATH_PREFIX	"PATH="

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:02:46 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:05:38 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	*search_in_paths(char **paths, char *prog_name)
 	return (prog_path);
 }
 
-// Todo: rename env error?
 static char	**get_paths(char **env)
 {
 	char	**paths;
@@ -99,7 +98,7 @@ static char	**get_paths(char **env)
 		i++;
 	}
 	if (i == 0)
-		print_error_exit(ENV_ERROR, 5);
+		print_error_exit(PATH_ERROR, 5);
 	paths = ft_split(path_env_var, ':');
 	return (paths);
 }

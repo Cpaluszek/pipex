@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:06:39 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:11:01 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	main(int argc, char **argv, char **env)
 	input_file_path = argv[1];
 	first_command = argv[2];
 	if (argc != 5)
-		print_error_exit(ARG_ERROR, 1);
+		print_error_exit(ARG_ERROR);
 	input_fd = open(input_file_path, O_RDONLY);
 	if (input_fd == -1)
-		print_perror_exit(FILE_ERROR, 1);
+		print_perror_exit(FILE_ERROR);
 	command_with_args = parse_program(first_command, env);
 	execute_program(input_fd, command_with_args, env);
 }

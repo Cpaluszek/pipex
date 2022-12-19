@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:56:40 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:10:35 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
 static void	alloc_error(char **split);
 
-// Note: custom print function for access error?
 char	**parse_program(char *prog_name, char **env)
 {
 	char	**paths;
@@ -26,7 +25,7 @@ char	**parse_program(char *prog_name, char **env)
 
 	prog_with_args = ft_split(prog_name, ' ');
 	if (prog_with_args == NULL)
-		print_error_exit(ALLOC_ERROR, 1);
+		print_error_exit(ALLOC_ERROR);
 	if (ft_strchr(prog_with_args[0], '/') != NULL)
 		return (access_absolute_path(prog_with_args));
 	temp = ft_strjoin("/", prog_with_args[0]);
@@ -44,15 +43,14 @@ char	**parse_program(char *prog_name, char **env)
 static void	alloc_error(char **split)
 {
 	free_split(split);
-	print_error_exit(ALLOC_ERROR, 1);
+	print_error_exit(ALLOC_ERROR);
 }
 
 static char	**access_absolute_path(char **prog_with_args)
 {
 	if (access(prog_with_args[0], F_OK | X_OK) == 0)
 		return (prog_with_args);
-	ft_printf_fd(STDERR_FILENO, prog_with_args[0]);
-	print_error_exit(": Can't be accessed\n", 1);
+	print_perror_exit(prog_with_args[0]);
 	free_split(prog_with_args);
 	return (NULL);
 }
@@ -98,7 +96,7 @@ static char	**get_paths(char **env)
 		i++;
 	}
 	if (i == 0)
-		print_error_exit(PATH_ERROR, 1);
+		print_error_exit(PATH_ERROR);
 	paths = ft_split(path_env_var, ':');
 	return (paths);
 }

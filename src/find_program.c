@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 11:58:08 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:01:55 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static char	**get_paths(char **env);
 static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
+static void	alloc_error(char **split);
 
 // Todo: find a better file name
-
 // Note: custom print function for access error?
 char	**parse_program(char *prog_name, char **env)
 {
@@ -34,18 +34,18 @@ char	**parse_program(char *prog_name, char **env)
 	free(prog_with_args[0]);
 	prog_with_args[0] = temp;
 	if (prog_with_args[0] == NULL)
-	{
-		free_split(prog_with_args);
-		print_error_exit(ALLOC_ERROR, 4);
-	}
+		alloc_error(prog_with_args);
 	paths = get_paths(env);
 	if (paths == NULL)
-	{
-		free_split(prog_with_args);
-		print_error_exit(ALLOC_ERROR, 4);
-	}
+		alloc_error(prog_with_args);
 	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
 	return (prog_with_args);
+}
+
+static void	alloc_error(char **split)
+{
+	free_split(split);
+	print_error_exit(ALLOC_ERROR, 4);
 }
 
 static char	**access_absolute_path(char **prog_with_args)

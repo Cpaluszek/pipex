@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 15:27:06 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 09:13:52 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ char	**parse_program(char *prog_name, char **env)
 
 	paths = get_paths(env);
 	if (paths == NULL)
-		allocation_error();
+		print_error(ALLOC_ERROR, 4);
 	prog_with_args = ft_split(prog_name, ' ');
 	if (prog_with_args == NULL)
 	{
 		free_split(paths);
-		allocation_error();
+		print_error(ALLOC_ERROR, 4);
 	}
 	if (ft_strchr(prog_with_args[0], '/') == NULL)
 	{
@@ -40,7 +40,7 @@ char	**parse_program(char *prog_name, char **env)
 		{
 			free_split(paths);
 			free_split(prog_with_args);
-			allocation_error();
+			print_error(ALLOC_ERROR, 4);
 		}
 	}
 	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
@@ -70,6 +70,7 @@ static char	*search_in_paths(char **paths, char *prog_name)
 	return (prog_path);
 }
 
+// Todo: rename env error?
 static char	**get_paths(char **env)
 {
 	char	**paths;
@@ -85,7 +86,7 @@ static char	**get_paths(char **env)
 		i++;
 	}
 	if (i == 0)
-		env_error();
+		print_error(ENV_ERROR, 5);
 	paths = ft_split(path_env_var, ':');
 	return (paths);
 }

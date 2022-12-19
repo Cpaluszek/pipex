@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/18 15:16:48 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 09:03:45 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ void	execute_program(int input_fd, char **prog_with_args, char **env)
 	int	pid;
 	int	exec_ret;
 
+	// Todo: check fork return -1 -> exit
 	pid = fork();
 	if (pid == 0)
 	{
+		// Todo: Protect dup
 		dup2(input_fd, STDIN_FILENO);
+		// Todo: Protect close
 		close(input_fd);
 		printf("Child process start\n");
 		exec_ret = execve(prog_with_args[0], prog_with_args, env);
 		if (exec_ret == -1)
-			program_error();
+			print_sys_error("Execution error", 3);
 	}
 	else
 	{

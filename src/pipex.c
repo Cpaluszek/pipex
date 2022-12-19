@@ -6,13 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 18:10:09 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:12:50 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	truc(t_pipex *pipex, char **argv);
+static void	get_cmds(t_pipex *pipex, char **argv);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 		print_perror_exit(ALLOC_ERROR);
 	if (pipe(pipex.pipe) == -1)
 		print_perror_exit(PIPE_ERROR);
-	truc(&pipex, argv);
+	get_cmds(&pipex, argv);
 	execute_first_program(&pipex);
 	execute_second_program(&pipex);
 	close_pipes(&pipex);
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 }
 
 // Note: error code 127 ??
-static void	truc(t_pipex *pipex, char **argv)
+static void	get_cmds(t_pipex *pipex, char **argv)
 {
 	pipex->first_cmd = parse_program(argv[2], pipex);
 	if (pipex->first_cmd[0] == NULL)

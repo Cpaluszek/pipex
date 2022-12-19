@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:05:08 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:05:29 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 // Creating a child process to execute a program
 // Note: search about waitpid parameters
-		// Todo: Protect dup
-		// Todo: Protect close
 void	execute_program(int input_fd, char **prog_with_args, char **env)
 {
 	int	pid;

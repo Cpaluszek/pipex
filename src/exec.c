@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:05:29 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:06:18 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,10 @@ void	execute_program(int input_fd, char **prog_with_args, char **env)
 			print_perror_exit(DUP2_ERROR, 1);	
 		if (close(input_fd))
 			print_perror_exit(CLOSE_ERROR, 1);
-		printf("Child process start\n");
 		exec_ret = execve(prog_with_args[0], prog_with_args, env);
 		if (exec_ret == -1)
 			print_perror_exit(EXEC_ERROR, 1);
 	}
-	else
-	{
-		printf("Parent process\n");
-		waitpid(pid, NULL, 0);
-		free_split(prog_with_args);
-	}
+	waitpid(pid, NULL, 0);
+	free_split(prog_with_args);
 }

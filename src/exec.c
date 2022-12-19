@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:23:25 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:47:52 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,46 @@
 
 // Creating a child process to execute a program
 // Note: search about waitpid parameters
-void	execute_first_program(int input_fd, char **prog_with_args, char **env)
+// Note: free alls cmd in case of error ?
+// Todo: create a free struct function
+void	execute_first_program(t_pipex *pipex)
 {
-	pid_t	pid;
-	int		exec_ret;
-	int		new_fd;
-
-	pid = fork();
-	if (pid == -1)
+	pipex->pid1 = fork();
+	if (pipex->pid1 == -1)
 	{
-		free_split(prog_with_args);
+		parent_free_and_close(pipex);
 		print_perror_exit(FORK_ERROR);
 	}	
-	if (pid == 0)
+	if (pipex->pid1 == 0)
 	{
-		new_fd = dup2(input_fd, STDIN_FILENO);
-		if (new_fd == -1)
+		if (dup2(pipex->in_file, STDIN_FILENO) == -1)
 			print_perror_exit(DUP2_ERROR);
-		if (close(input_fd))
+		if (close(pipex->in_file) == -1 | close(pipex->pipe[0]) == -1)
 			print_perror_exit(CLOSE_ERROR);
-		exec_ret = execve(prog_with_args[0], prog_with_args, env);
-		if (exec_ret == -1)
+		if (dup2(pipex->pipe[1], STDOUT_FILENO) == -1)
+			print_perror_exit(DUP2_ERROR);
+		if (execve(pipex->first_cmd[0], pipex->first_cmd, pipex->env) == -1)
 			print_perror_exit(EXEC_ERROR);
 	}
-	waitpid(pid, NULL, 0);
-	free_split(prog_with_args);
 }
 
-void	execute_second_program(char *output, char **prog_with_args, char **env)
+void	execute_second_program(t_pipex *pipex)
 {
-	int	out_fd;
-
-	(void) prog_with_args;
-	(void) env;
-	out_fd = open(output, O_CREAT | O_TRUNC | O_RDWR);
-	if (out_fd == -1)
-		print_perror_exit(FILE_ERROR);
+	pipex->pid2 = fork();
+	if (pipex->pid2 == -1)
+	{
+		parent_free_and_close(pipex);
+		print_perror_exit(FORK_ERROR);
+	}
+	if (pipex->pid2 == 0)
+	{
+		if (dup2(pipex->pipe[0], STDIN_FILENO) == -1)
+			print_perror_exit(DUP2_ERROR);
+		if (close(pipex->pipe[1]) == -1)
+			print_perror_exit(CLOSE_ERROR);
+		if (dup2(pipex->out_file, STDOUT_FILENO) == -1)
+			print_perror_exit(PIPE_ERROR);
+		if (execve(pipex->second_cmd[0], pipex->second_cmd, pipex->env) == -1)
+			print_perror_exit(EXEC_ERROR);
+	}
 }

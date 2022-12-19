@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:21:21 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:26:05 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,38 @@
 # define DUP2_ERROR		"Error duplicating file descriptor"
 # define CLOSE_ERROR	"Error closing file descriptor"
 # define EXEC_ERROR		"Error executing program"
+# define PIPE_ERROR		"Error creating pipe"
 
 # define PATH_PREFIX	"PATH="
 
-typedef struct s_args
+// Note: t_pid in struct ?
+typedef struct s_pipex
 {
 	char	**first_cmd;
 	char	**second_cmd;
-}	t_args;
+	char	**env;
+	char	**paths;
+	int		pipe[2];
+	int		in_file;
+	int		out_file;
+	pid_t	pid1;
+	pid_t	pid2;
+}	t_pipex;
 
 /* Find Program	*/
-char	**parse_program(char *prog_name, char **env);
+char	**parse_program(char *prog_name, t_pipex *pipex);
+char	**get_paths(char **env);
 
 /*	Exec	*/
-void	execute_first_program(int input_fd, char **prog_with_args, char **env);
-void	execute_second_program(char *output, char **prog_with_args, char **env);
+void	execute_first_program(t_pipex *pipex);
+void	execute_second_program(t_pipex *pipex);
 
 /*	Errors	*/
 void	print_error_exit(char *str);
 void	print_perror_exit(char *str);
 
 /*	Utils	*/
+void	parent_free_and_close(t_pipex *pipex);
 void	free_split(char **split);
-char	*join_and_free(char *s1, char *s2);
 
 #endif

@@ -6,20 +6,18 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 13:10:35 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:55:29 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	**get_paths(char **env);
 static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
 static void	alloc_error(char **split);
 
-char	**parse_program(char *prog_name, char **env)
+char	**parse_program(char *prog_name, t_pipex *pipex)
 {
-	char	**paths;
 	char	**prog_with_args;
 	char	*temp;
 
@@ -33,10 +31,7 @@ char	**parse_program(char *prog_name, char **env)
 	prog_with_args[0] = temp;
 	if (prog_with_args[0] == NULL)
 		alloc_error(prog_with_args);
-	paths = get_paths(env);
-	if (paths == NULL)
-		alloc_error(prog_with_args);
-	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
+	prog_with_args[0] = search_in_paths(pipex->paths, prog_with_args[0]);
 	return (prog_with_args);
 }
 
@@ -78,7 +73,7 @@ static char	*search_in_paths(char **paths, char *prog_name)
 	return (prog_path);
 }
 
-static char	**get_paths(char **env)
+char	**get_paths(char **env)
 {
 	char	**paths;
 	char	*path_env_var;

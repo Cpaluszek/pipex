@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:06:09 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:56:51 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **env)
 		print_error_exit(ARG_ERROR, 1);
 	input_fd = open(input_file_path, O_RDONLY);
 	if (input_fd == -1)
-		print_sys_error_exit(FILE_ERROR, 2);
+		print_sys_error_exit(FILE_ERROR, 1);
 	command_with_args = parse_program(first_command, env);
 	execute_program(input_fd, command_with_args, env);
 	printf("Parent process exit\n");

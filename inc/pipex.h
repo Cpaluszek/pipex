@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 12:12:12 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:13:30 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define PATH_ERROR		"PATH not found\n"
 # define FILE_ERROR		"File error"
 # define FORK_ERROR		"Fork error"
+# define DUP2_ERROR		"dup2() error"
+# define CLOSE_ERROR	"Error while closing file"
 
 # define PATH_PREFIX	"PATH="
 

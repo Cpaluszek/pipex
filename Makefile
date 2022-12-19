@@ -54,7 +54,7 @@ _WHITE			:=	\x1b[37m
 all: build_libs $(NAME)
 
 $(NAME): $(LIB_PATHS) $(OBJS)
-	@$(CC) $(CC_FLAGS) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
+	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
 	@echo "> $(NAME) Done!\n"
 	
 build_libs:
@@ -65,7 +65,7 @@ build_libs:
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES)
 	@mkdir -p $(@D)
 	@echo "$(_GREEN)compiling: $<$(_END)"
-	@$(CC) $(CC_FLAGS) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
 
 # clean commands
 clean:

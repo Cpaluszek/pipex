@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:13:52 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 09:32:04 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ static char	*search_in_paths(char **paths, char *prog_name);
 
 // Todo: find a better file name
 
-// Note: check env for null ?
-// Note: join in temp to free previous?
 char	**parse_program(char *prog_name, char **env)
 {
 	char	**paths;
 	char	**prog_with_args;
+	char	*temp;
 
 	paths = get_paths(env);
 	if (paths == NULL)
@@ -35,7 +34,9 @@ char	**parse_program(char *prog_name, char **env)
 	}
 	if (ft_strchr(prog_with_args[0], '/') == NULL)
 	{
-		prog_with_args[0] = ft_strjoin("/", prog_with_args[0]);
+		temp = ft_strjoin("/", prog_with_args[0]);
+		free(prog_with_args[0]);
+		prog_with_args[0] = temp;
 		if (prog_with_args[0] == NULL)
 		{
 			free_split(paths);

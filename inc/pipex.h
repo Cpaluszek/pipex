@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:14:13 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 09:22:55 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	print_sys_error(char *str, int err_code);
 
 /*	Utils	*/
 void	free_split(char **split);
+char	*join_and_free(char *s1, char *s2);
 
 #endif

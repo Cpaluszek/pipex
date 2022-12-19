@@ -6,12 +6,11 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 09:33:02 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:03:32 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Note: too much to include pipex.h?
-#include "pipex.h"
+#include <stdlib.h>
 
 void	free_split(char **split)
 {

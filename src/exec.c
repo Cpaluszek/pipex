@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 10:40:40 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:58:24 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 // Creating a child process to execute a program
 // Note: search about waitpid parameters
+	// Todo: check fork return -1 -> exit
+		// Todo: Protect dup
+		// Todo: Protect close
 void	execute_program(int input_fd, char **prog_with_args, char **env)
 {
 	int	pid;
 	int	exec_ret;
 
-	// Todo: check fork return -1 -> exit
 	pid = fork();
 	if (pid == 0)
 	{
-		// Todo: Protect dup
 		dup2(input_fd, STDIN_FILENO);
-		// Todo: Protect close
 		close(input_fd);
 		printf("Child process start\n");
 		exec_ret = execve(prog_with_args[0], prog_with_args, env);

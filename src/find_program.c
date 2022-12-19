@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 10:42:11 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:58:08 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static char	**get_paths(char **env);
 static char	*search_in_paths(char **paths, char *prog_name);
+static char	**access_absolute_path(char **prog_with_args);
 
 // Todo: find a better file name
 
+// Note: custom print function for access error?
 char	**parse_program(char *prog_name, char **env)
 {
 	char	**paths;
@@ -26,16 +28,8 @@ char	**parse_program(char *prog_name, char **env)
 	prog_with_args = ft_split(prog_name, ' ');
 	if (prog_with_args == NULL)
 		print_error_exit(ALLOC_ERROR, 4);
-	// Test if we need to search in path and cat
-	// Note: custom print function?
 	if (ft_strchr(prog_with_args[0], '/') != NULL)
-	{
-		if (access(prog_with_args[0], F_OK | X_OK) == 0)
-			return (prog_with_args);
-		ft_printf_fd(STDERR_FILENO, prog_with_args[0]);
-		print_error_exit(": Can't be accessed\n", 6);
-		free_split(prog_with_args);
-	}
+		return (access_absolute_path(prog_with_args));
 	temp = ft_strjoin("/", prog_with_args[0]);
 	free(prog_with_args[0]);
 	prog_with_args[0] = temp;
@@ -52,6 +46,16 @@ char	**parse_program(char *prog_name, char **env)
 	}
 	prog_with_args[0] = search_in_paths(paths, prog_with_args[0]);
 	return (prog_with_args);
+}
+
+static char	**access_absolute_path(char **prog_with_args)
+{
+	if (access(prog_with_args[0], F_OK | X_OK) == 0)
+		return (prog_with_args);
+	ft_printf_fd(STDERR_FILENO, prog_with_args[0]);
+	print_error_exit(": Can't be accessed\n", 6);
+	free_split(prog_with_args);
+	return (NULL);
 }
 
 // Check if we can find the program using env

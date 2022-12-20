@@ -6,14 +6,12 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 08:59:00 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 09:04:50 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// Note: search about waitpid parameters
-// Note: free alls cmd in case of error ?
 // Creating a child process using fork to execute the 1st command
 void	execute_first_program(t_pipex *pipex)
 {

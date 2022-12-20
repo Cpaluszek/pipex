@@ -19,7 +19,12 @@ SRC_FILES		:=	pipex.c \
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 SRC_DIR_B		:=	src_bonus
-SRC_FILES_B		:=	pipex_bonus.c
+SRC_FILES_B		:=	pipex_bonus.c \
+					parse_program_bonus.c \
+					child_bonus.c \
+					here_doc_bonus.c \
+					errors_bonus.c \
+					utils_bonus.c
 
 SRCS_B			:= $(addprefix $(SRC_DIR_B)/, $(SRC_FILES_B))
 

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 09:04:50 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 10:31:20 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_first_program(t_pipex *pipex)
 	{
 		parent_free_and_close(pipex);
 		print_perror_exit(FORK_ERROR);
-	}	
+	}
 	if (pipex->pid1 == 0)
 	{
 		if (dup2(pipex->in_file, STDIN_FILENO) == -1)

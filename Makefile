@@ -80,7 +80,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES)
 	@echo "$(_GREEN)compiling: $<$(_END)"
 	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
 
-bonus: $(LIB_PATHS) $(OBJS_B)
+bonus: build_libs $(LIB_PATHS) $(OBJS_B)
 	@$(CC) $(CC_FLAGS) $(OBJS_B) $(LIB_LD) $(LIBS) -o $(NAME)
 	@echo "> $(NAME) bonus Done!\n"
 

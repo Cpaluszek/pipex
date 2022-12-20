@@ -6,13 +6,14 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:28:57 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 08:59:49 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "pipex.h"
 
+// Free an array of strings
 void	free_split(char **split)
 {
 	int	i;
@@ -23,6 +24,7 @@ void	free_split(char **split)
 	free(split);
 }
 
+// Close both ends of the generated pipe
 void	close_pipes(t_pipex *pipex)
 {
 	if (close(pipex->pipe[0]) == -1)
@@ -31,6 +33,7 @@ void	close_pipes(t_pipex *pipex)
 		print_perror_exit(CLOSE_ERROR);
 }
 
+// Free all allocation in t_pipex then exit the program
 void	parent_free_and_close(t_pipex *pipex)
 {
 	if (pipex->paths != NULL)

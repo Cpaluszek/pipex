@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 18:12:50 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 08:56:15 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	main(int argc, char **argv, char **env)
 	parent_free_and_close(&pipex);
 }
 
-// Note: error code 127 ??
+// Search for program access
+// Use PATH in env if no absolute path
 static void	get_cmds(t_pipex *pipex, char **argv)
 {
 	pipex->first_cmd = parse_program(argv[2], pipex);

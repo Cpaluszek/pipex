@@ -6,15 +6,15 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:42:18 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 08:59:00 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// Creating a child process to execute a program
 // Note: search about waitpid parameters
 // Note: free alls cmd in case of error ?
+// Creating a child process using fork to execute the 1st command
 void	execute_first_program(t_pipex *pipex)
 {
 	pipex->pid1 = fork();
@@ -36,6 +36,7 @@ void	execute_first_program(t_pipex *pipex)
 	}
 }
 
+// Creating a child process using fork to execute the 2nd command
 void	execute_second_program(t_pipex *pipex)
 {
 	pipex->pid2 = fork();

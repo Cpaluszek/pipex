@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:59:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 08:57:24 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static char	*search_in_paths(char **paths, char *prog_name);
 static char	**access_absolute_path(char **prog_with_args);
 static void	alloc_error_exit(char **split);
 
+// Search for program access
+// In PATH if no absolute path
 char	**parse_program(char *prog_name, t_pipex *pipex)
 {
 	char	**prog_with_args;
@@ -35,6 +37,7 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 	return (prog_with_args);
 }
 
+// Search for PATH variable in environment
 char	**get_paths(char **env)
 {
 	char	**paths;
@@ -64,6 +67,7 @@ static void	alloc_error_exit(char **split)
 	print_error_exit(ALLOC_ERROR);
 }
 
+// Check for program access when the input is an absolute path
 static char	**access_absolute_path(char **prog_with_args)
 {
 	if (access(prog_with_args[0], F_OK | X_OK) == 0)
@@ -73,9 +77,9 @@ static char	**access_absolute_path(char **prog_with_args)
 	return (NULL);
 }
 
+// Note: is malloc protection on join needed? or dup?
 // Check if we can find the program using env
 // 		access: F_OK + X_OK => program exist and can be executed
-// Note: is malloc protection on join needed? or dup?
 static char	*search_in_paths(char **paths, char *prog_name)
 {
 	int		i;

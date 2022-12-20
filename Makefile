@@ -7,6 +7,7 @@ NAME			:=	pipex
 
 HEADERS			:=	inc
 HEADERS_FILES	:=	pipex.h
+HEADER_FILES_B	:=	pipex_bonus.h
 
 SRC_DIR			:=	src
 SRC_FILES		:=	pipex.c \
@@ -17,6 +18,11 @@ SRC_FILES		:=	pipex.c \
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
+SRC_DIR_B		:=	src_bonus
+SRC_FILES_B		:=	pipex_bonus.c
+
+SRCS_B			:= $(addprefix $(SRC_DIR_B)/, $(SRC_FILES_B))
+
 LIB_NAMES		:=	lib/libft
 LIBS			:=	$(subst lib,-l,$(notdir $(LIB_NAMES)))
 LIB_LD			:=	$(foreach lib,$(LIB_NAMES),-L$(lib))
@@ -25,6 +31,8 @@ LIB_HEADERS		:=	$(foreach lib,$(LIB_NAMES),-I$(lib)/inc/)
 
 BUILD_DIR		:=	build
 OBJS			:=	$(SRC_FILES:%.c=$(BUILD_DIR)/%.o)
+BUILD_DIR_B		:=	build_bonus
+OBJS_B			:=	$(SRC_FILES_B:%.c=$(BUILD_DIR_B)/%.o)
 
 # Compiler options
 CC				:=	cc
@@ -63,6 +71,15 @@ build_libs:
 	)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES)
+	@mkdir -p $(@D)
+	@echo "$(_GREEN)compiling: $<$(_END)"
+	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
+
+bonus: $(LIB_PATHS) $(OBJS_B)
+	@$(CC) $(CC_FLAGS) $(OBJS_B) $(LIB_LD) $(LIBS) -o $(NAME)
+	@echo "> $(NAME) bonus Done!\n"
+
+$(BUILD_DIR_B)/%.o: $(SRC_DIR_B)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES_B)
 	@mkdir -p $(@D)
 	@echo "$(_GREEN)compiling: $<$(_END)"
 	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@

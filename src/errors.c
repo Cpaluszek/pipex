@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 09:27:41 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 08:58:28 by cpalusze         ###   ########.fr       */
+/*   Updated: 2022/12/20 11:40:46 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_perror_exit(char *str)
 void	file_error_exit(char *str)
 {
 	ft_printf_fd(STDERR_FILENO, "%s: %s\n", strerror(errno), str);
-	exit(1);
+	exit(127);
 }
 
 // Print custom error message and exit program

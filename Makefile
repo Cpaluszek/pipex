@@ -24,6 +24,7 @@ SRC_FILES_B		:=	pipex_bonus.c \
 					child_bonus.c \
 					here_doc_bonus.c \
 					errors_bonus.c \
+					files_bonus.c \
 					utils_bonus.c
 
 SRCS_B			:= $(addprefix $(SRC_DIR_B)/, $(SRC_FILES_B))

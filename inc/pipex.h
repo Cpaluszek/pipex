@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:53:16 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:24:17 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	print_perror_exit(char *str);
 void	file_error_exit(char *str);
 
 /*	Utils	*/
-void	parent_free_and_close(t_pipex *pipex);
+void	parent_free(t_pipex *pipex);
 void	close_pipes(t_pipex *pipex);
 void	free_split(char **split);
 

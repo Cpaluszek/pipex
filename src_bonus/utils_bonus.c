@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:06:31 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 10:17:13 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:43:34 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ void	free_split(char **split)
 }
 
 // Close both ends of the generated pipe
-// Note: to rework, currently free half of the pipes
 void	close_pipes(t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
-	while (i < pipex->cmd_count - 1)
+	while (i < pipex->cmd_count)
 	{
 		if (close(pipex->pipes[i]) == -1)
 		{
 			parent_free(pipex);
 			print_perror_exit(CLOSE_ERROR);
 		}
+		i++;
 	}
 }
 

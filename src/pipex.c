@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:53:32 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:47:35 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 static void	open_files(t_pipex *pipex, char *input, char *output);
 static void	get_cmds(t_pipex *pipex, char **argv);
 
+// Todo: status code from wait
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
+	int		status;
 
 	if (argc != 5)
 		print_error_exit(ARG_ERROR);
@@ -33,9 +35,10 @@ int	main(int argc, char **argv, char **env)
 	execute_first_program(&pipex);
 	execute_second_program(&pipex);
 	close_pipes(&pipex);
-	waitpid(pipex.pid1, NULL, 0);
-	waitpid(pipex.pid2, NULL, 0);
-	parent_free_and_close(&pipex);
+	waitpid(pipex.pid1, &status, 0);
+	waitpid(pipex.pid2, &status, 0);
+	parent_free(&pipex);
+	return (status);
 }
 
 // Open input file, create or open with truncation the output file

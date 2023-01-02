@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 10:17:16 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 13:57:14 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	here_doc(char *arg, t_pipex *pipex)
 	{
 		write(1, HERE_DOC_START, ft_strlen(HERE_DOC_START));
 		buffer = get_next_line(STDIN_FILENO);
-		if (!ft_strncmp(arg, buffer, ft_strlen(arg) + 1))
+		if (!ft_strncmp(arg, buffer, ft_strlen(arg)))
 			break ;
 		write(file, buffer, ft_strlen(buffer));
 		write(file, "\n", 1);

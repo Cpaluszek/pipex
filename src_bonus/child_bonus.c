@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 10:17:02 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:41:42 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ void	child(t_pipex *pipex, char **argv)
 		print_perror_exit(FORK_ERROR);
 	}
 	if (pipex->pid == 0)
-		dup_fds(pipex->in_file, pipex->pipes[1]);
-	else if (pipex->pid == pipex->cmd_count - 1)
-		dup_fds(pipex->pipes[2 * pipex->child_id - 2], pipex->out_file);
-	else
-		dup_fds(pipex->pipes[2 * pipex->child_id - 2],
-			pipex->pipes[2 * pipex->child_id + 1]);
-	close_pipes(pipex);
-	get_cmd(argv[2 + pipex->here_doc + pipex->child_id], pipex);
-	execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env);
+	{
+		if (pipex->child_id == 0)
+			dup_fds(pipex->in_file, pipex->pipes[1]);
+		else if (pipex->child_id == pipex->cmd_count - 1)
+			dup_fds(pipex->pipes[2 * pipex->child_id - 2], pipex->out_file);
+		else
+			dup_fds(pipex->pipes[2 * pipex->child_id - 2],
+				pipex->pipes[2 * pipex->child_id + 1]);
+		close_pipes(pipex);
+		get_cmd(argv[2 + pipex->here_doc + pipex->child_id], pipex);
+		execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env);
+	}
 }
 
 static void	get_cmd(char *arg, t_pipex *pipex)

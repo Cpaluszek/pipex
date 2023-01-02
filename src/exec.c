@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:51:14 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:24:17 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_first_program(t_pipex *pipex)
 	pipex->pid1 = fork();
 	if (pipex->pid1 == -1)
 	{
-		parent_free_and_close(pipex);
+		parent_free(pipex);
 		print_perror_exit(FORK_ERROR);
 	}
 	if (pipex->pid1 == 0)
@@ -45,7 +45,7 @@ void	execute_second_program(t_pipex *pipex)
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
 	{
-		parent_free_and_close(pipex);
+		parent_free(pipex);
 		print_perror_exit(FORK_ERROR);
 	}
 	if (pipex->pid2 == 0)

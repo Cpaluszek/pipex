@@ -5,3 +5,5 @@ pipex
 .vscode/
 *.txt
 out
+pipex_tester_42/
+.heredoc.tmp

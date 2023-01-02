@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 10:25:01 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:24:18 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	close_pipes(t_pipex *pipex)
 		print_perror_exit(CLOSE_ERROR);
 }
 
-// Free all allocation in t_pipex then exit the program
-void	parent_free_and_close(t_pipex *pipex)
+// Free all allocation in t_pipex
+void	parent_free(t_pipex *pipex)
 {
 	if (pipex->paths != NULL)
 		free_split(pipex->paths);

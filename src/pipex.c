@@ -6,13 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:38:11 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:51:42 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void open_files(t_pipex *pipex, char *input, char *output);
+static void	open_files(t_pipex *pipex, char *input, char *output);
 static void	get_cmds(t_pipex *pipex, char **argv);
 
 int	main(int argc, char **argv, char **env)
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **env)
 }
 
 // Open input file, create or open with truncation the output file
-static void open_files(t_pipex *pipex, char *input, char *output)
+static void	open_files(t_pipex *pipex, char *input, char *output)
 {
 	pipex->in_file = open(input, O_RDONLY);
 	if (pipex->in_file == -1)

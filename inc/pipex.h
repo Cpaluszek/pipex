@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/19 17:52:20 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:49:28 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define DUP2_ERROR		"Error duplicating file descriptor"
 # define CLOSE_ERROR	"Error closing file descriptor"
 # define PIPE_ERROR		"Error creating pipe"
+# define EXEC_ERROR		"Execution Error"
 
 # define PATH_PREFIX	"PATH="
 

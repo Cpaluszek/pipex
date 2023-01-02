@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 12:55:51 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:42:33 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static char	*search_in_paths(char **paths, char *prog_name, int *error);
 static char	**access_absolute_path(char **prog_with_args);
 static void	alloc_error_exit(char **split);
 
-// Search for program access
-// In PATH if no absolute path
+// Search for program access, in PATH or absolute path
 char	**parse_program(char *prog_name, t_pipex *pipex)
 {
 	char	**prog_args;
 	char	*temp;
 	int		alloc_error;
 
+	alloc_error = 0;
 	prog_args = ft_split(prog_name, ' ');
 	if (prog_args == NULL)
 		print_error_exit(ALLOC_ERROR);
@@ -34,7 +34,6 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 	prog_args[0] = temp;
 	if (prog_args[0] == NULL)
 		alloc_error_exit(prog_args);
-	alloc_error = 0;
 	prog_args[0] = search_in_paths(pipex->paths, prog_args[0], &alloc_error);
 	if (alloc_error)
 		alloc_error_exit(prog_args);

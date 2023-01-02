@@ -6,12 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 13:28:36 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:38:11 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+static void open_files(t_pipex *pipex, char *input, char *output);
 static void	get_cmds(t_pipex *pipex, char **argv);
 
 int	main(int argc, char **argv, char **env)
@@ -20,12 +21,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 5)
 		print_error_exit(ARG_ERROR);
-	pipex.in_file = open(argv[1], O_RDONLY);
-	if (pipex.in_file == -1)
-		file_error_exit(argv[1]);
-	pipex.out_file = open(argv[4], O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (pipex.out_file == -1)
-		print_perror_exit(FILE_ERROR);
+	open_files(&pipex, argv[1], argv[4]);
 	pipex.env = env;
 	pipex.paths = get_paths(env);
 	if (pipex.paths == NULL)
@@ -39,6 +35,17 @@ int	main(int argc, char **argv, char **env)
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
 	parent_free_and_close(&pipex);
+}
+
+// Open input file, create or open with truncation the output file
+static void open_files(t_pipex *pipex, char *input, char *output)
+{
+	pipex->in_file = open(input, O_RDONLY);
+	if (pipex->in_file == -1)
+		file_error_exit(input);
+	pipex->out_file = open(output, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (pipex->out_file == -1)
+		print_perror_exit(FILE_ERROR);
 }
 
 // Search for program access

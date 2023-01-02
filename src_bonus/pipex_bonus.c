@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 10:04:18 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 10:17:08 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	create_pipes(t_pipex *pipex)
 	{
 		if (pipe(pipex->pipes + (2 * i)) == -1)
 		{
-			parent_free(pipex);	
+			parent_free(pipex);
 			print_perror_exit(PIPE_ERROR);
 		}
 		i++;

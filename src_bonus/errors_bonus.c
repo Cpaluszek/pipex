@@ -6,13 +6,14 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:09:05 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 10:09:27 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:54:54 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
 
 // Print error message from errno and exit program
 void	print_perror_exit(char *str)

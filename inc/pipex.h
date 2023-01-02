@@ -6,15 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:49:28 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:53:16 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 # include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
 
 # include "libft.h"
 

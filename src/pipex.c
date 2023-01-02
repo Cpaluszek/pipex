@@ -6,11 +6,12 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:51:42 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:53:32 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <fcntl.h>
 
 static void	open_files(t_pipex *pipex, char *input, char *output);
 static void	get_cmds(t_pipex *pipex, char **argv);

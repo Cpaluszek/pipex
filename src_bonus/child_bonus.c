@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 10:47:48 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 10:04:49 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	child(t_pipex *pipex, char **argv)
 	pipex->pid = fork();
 	if (pipex->pid == -1)
 	{
-		parent_free_and_close(pipex);
+		parent_free(pipex);
 		print_perror_exit(FORK_ERROR);
 	}
 	if (pipex->pid == 0)

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:06:31 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:56:46 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 10:08:03 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	free_split(char **split)
 	while (split[i] != NULL)
 		free(split[i++]);
 	free(split);
+	split = NULL;
 }
 
 // Close both ends of the generated pipe
 // Note: to rework, currently free half of the pipes
-// Todo: free parent
 void	close_pipes(t_pipex *pipex)
 {
 	int	i;
@@ -34,16 +34,21 @@ void	close_pipes(t_pipex *pipex)
 	while (i < pipex->cmd_count - 1)
 	{
 		if (close(pipex->pipes[i]) == -1)
+		{
+			parent_free(pipex);
 			print_perror_exit(CLOSE_ERROR);
+		}
 	}
 }
 
 // Todo: adapt function to bonus
-// Free all allocation in t_pipex then exit the program
-void	parent_free_and_close(t_pipex *pipex)
+// Free all allocation in t_pipex
+void	parent_free(t_pipex *pipex)
 {
 	if (pipex->paths != NULL)
 		free_split(pipex->paths);
+	if (pipex->pipes != NULL)
+		free(pipex->pipes);
 	if (pipex->cmd_args != NULL)
 		free_split(pipex->cmd_args);
 	if (close(pipex->in_file) == -1)

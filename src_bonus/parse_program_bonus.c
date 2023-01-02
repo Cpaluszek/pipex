@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:01:39 by cpalusze          #+#    #+#             */
-/*   Updated: 2022/12/20 11:31:39 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/02 10:08:29 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 	char	*temp;
 	int		alloc_error;
 
+	alloc_error = 0;
 	prog_args = ft_split(prog_name, ' ');
 	if (prog_args == NULL)
 		print_error_exit(ALLOC_ERROR);
@@ -34,7 +35,6 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 	prog_args[0] = temp;
 	if (prog_args[0] == NULL)
 		alloc_error_exit(prog_args);
-	alloc_error = 0;
 	prog_args[0] = search_in_paths(pipex->paths, prog_args[0], &alloc_error);
 	if (alloc_error)
 		alloc_error_exit(prog_args);

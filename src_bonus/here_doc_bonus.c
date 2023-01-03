@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 13:57:14 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:50:21 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	here_doc(char *arg, t_pipex *pipex)
 		if (!ft_strncmp(arg, buffer, ft_strlen(arg)))
 			break ;
 		write(file, buffer, ft_strlen(buffer));
-		write(file, "\n", 1);
 		free(buffer);
 	}
 	free(buffer);

@@ -14,6 +14,7 @@ SRC_FILES		:=	pipex.c \
 					parse_program.c \
 					exec.c \
 					errors.c \
+					files.c \
 					utils.c
 
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRC_FILES))

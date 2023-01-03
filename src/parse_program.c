@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:20:06 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:22:56 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static char	*search_in_paths(char **paths, char *prog_name, int *error)
 	if (prog_path == NULL)
 	{
 		ft_printf_fd(STDERR_FILENO, "%s: ", prog_name + 1);
-		ft_printf_fd(STDERR_FILENO, "command not found\n");
+		ft_printf_fd(STDERR_FILENO, CMD_NOT_FOUND);
 	}
 	free(prog_name);
 	return (prog_path);

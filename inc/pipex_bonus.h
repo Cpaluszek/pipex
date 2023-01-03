@@ -6,12 +6,13 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 11:38:36 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:22:46 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
+
 # include <unistd.h>
 # include "libft.h"
 
@@ -24,6 +25,7 @@
 # define CLOSE_ERROR	"Error closing file descriptor"
 # define PIPE_ERROR		"Error creating pipe"
 # define EXEC_ERROR		"Execution Error"
+# define CMD_NOT_FOUND	"command not found\n"
 
 # define PATH_PREFIX	"PATH="
 

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 12:50:41 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:10:43 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-// Create pipes (command count - 1)
+// Create pipes
 static void	create_pipes(t_pipex *pipex)
 {
 	int	i;
@@ -59,9 +59,15 @@ static void	create_pipes(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_count - 1)
 	{
-		if (pipe(pipex->pipes + (2 * i)) == -1)
+		if (pipe(pipex->pipes + (i * 2)) == -1)
 		{
-			// Should close previous pipes ?
+			while (i >= 0)
+			{
+				if (close(pipex->pipes[i * 2]) == -1
+					| close(pipex->pipes[(i * 2) + 1]) == 1)
+					break ;
+				i--;
+			}
 			parent_free(pipex);
 			print_perror_exit(PIPE_ERROR);
 		}

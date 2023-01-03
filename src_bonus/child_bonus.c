@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 11:38:30 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:11:32 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	child(t_pipex *pipex, char **argv)
 				pipex->pipes[2 * pipex->child_id + 1]);
 		close_pipes(pipex);
 		get_cmd(argv[2 + pipex->here_doc + pipex->child_id], pipex);
-		// Todo: if get_cmd fails
 		execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env);
 	}
 }

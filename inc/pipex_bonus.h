@@ -6,14 +6,15 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 10:02:54 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:34:40 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 # include <unistd.h>
-
+// Todo: remove
+# include <stdio.h>
 # include "libft.h"
 
 # define ARG_ERROR		"Invalid parameters:\n./pipex file1 cmd1 cmd2 file2\n"

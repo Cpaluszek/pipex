@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:06:31 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 15:43:34 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:06:43 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	close_pipes(t_pipex *pipex)
 	int	i;
 
 	i = 0;
-	while (i < pipex->cmd_count)
+	dprintf(STDERR_FILENO, "Closing pipes: ");
+	while (i <= pipex->cmd_count)
 	{
+		dprintf(STDERR_FILENO, "%d ", pipex->pipes[i]);
 		if (close(pipex->pipes[i]) == -1)
 		{
 			parent_free(pipex);

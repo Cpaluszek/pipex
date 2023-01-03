@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 15:41:42 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:01:26 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,28 @@ void	child(t_pipex *pipex, char **argv)
 	}
 	if (pipex->pid == 0)
 	{
+		printf("\nExec child %d\n", pipex->child_id);
 		if (pipex->child_id == 0)
+		{
+			printf("dup(%d, %d) infile\n", pipex->in_file, pipex->pipes[1]);
 			dup_fds(pipex->in_file, pipex->pipes[1]);
+		}
 		else if (pipex->child_id == pipex->cmd_count - 1)
+		{
+			printf("dup(%d, %d) outfile\n", pipex->pipes[2 * pipex->child_id - 2], pipex->out_file);
 			dup_fds(pipex->pipes[2 * pipex->child_id - 2], pipex->out_file);
+		}
 		else
+		{
+			// Todo: marche pas
+			printf("X dup(%d, %d)\n", pipex->pipes[2 * pipex->child_id - 2], pipex->pipes[2 * pipex->child_id + 1]);
 			dup_fds(pipex->pipes[2 * pipex->child_id - 2],
 				pipex->pipes[2 * pipex->child_id + 1]);
+		}
 		close_pipes(pipex);
 		get_cmd(argv[2 + pipex->here_doc + pipex->child_id], pipex);
+		// Todo: if get_cmd fails
+		dprintf(STDERR_FILENO, "exec %s\n", pipex->cmd_args[0]);
 		execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env);
 	}
 }

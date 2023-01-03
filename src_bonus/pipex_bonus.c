@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:10:43 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:13:24 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static void	create_pipes(t_pipex *pipex);
 
 // Note: why -1 on wait
-// Todo: check all includes -> only bonuse
-// Todo: truncation on out file not working
 // Todo: makefile bonus relink?
 int	main(int argc, char **argv, char **env)
 {
@@ -25,13 +23,13 @@ int	main(int argc, char **argv, char **env)
 	if (argc < count_args(argv[1], &pipex))
 		print_error_exit(ARG_ERROR);
 	pipex.env = env;
-	pipex.paths = get_paths(env);
-	if (pipex.paths == NULL)
-		print_perror_exit(ALLOC_ERROR);
 	get_input_file(argv, &pipex);
 	get_output_file(argv[argc - 1], &pipex);
 	pipex.cmd_count = argc - 3 - pipex.here_doc;
 	pipex.pipes_count = 2 * (pipex.cmd_count - 1);
+	pipex.paths = get_paths(env);
+	if (pipex.paths == NULL)
+		print_perror_exit(ALLOC_ERROR);
 	create_pipes(&pipex);
 	pipex.child_id = 0;
 	while (pipex.child_id < pipex.cmd_count)

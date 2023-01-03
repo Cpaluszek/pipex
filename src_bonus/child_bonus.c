@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:11:32 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:37:32 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	dup_fds(int reading_end, int writing_end);
 static void	get_cmd(char *arg, t_pipex *pipex);
 
+// Create a child process using fork to execute command
 void	child(t_pipex *pipex, char **argv)
 {
 	pipex->pid = fork();
@@ -34,10 +35,15 @@ void	child(t_pipex *pipex, char **argv)
 				pipex->pipes[2 * pipex->child_id + 1]);
 		close_pipes(pipex);
 		get_cmd(argv[2 + pipex->here_doc + pipex->child_id], pipex);
-		execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env);
+		if (execve(pipex->cmd_args[0], pipex->cmd_args, pipex->env) == -1)
+		{
+			free_split(pipex->cmd_args);
+			print_perror_exit(EXEC_ERROR);
+		}
 	}
 }
 
+// Parse input parameters to find the command to execute
 static void	get_cmd(char *arg, t_pipex *pipex)
 {
 	pipex->cmd_args = parse_program(arg, pipex);
@@ -49,6 +55,7 @@ static void	get_cmd(char *arg, t_pipex *pipex)
 	}
 }
 
+// Duplicate STDIN and STDOUT to the desired fds
 static void	dup_fds(int reading_end, int writing_end)
 {
 	if (dup2(reading_end, STDIN_FILENO) == -1)

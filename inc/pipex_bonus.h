@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:22:46 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:16:05 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 # define CLOSE_ERROR	"Error closing file descriptor"
 # define PIPE_ERROR		"Error creating pipe"
 # define EXEC_ERROR		"Execution Error"
+# define WRITE_ERROR	"Write Error"
 # define CMD_NOT_FOUND	"command not found\n"
 
-# define PATH_PREFIX	"PATH="
+# define PATH_PREFIX		"PATH="
+# define HERE_DOC_TMP_FILE	".heredoc.tmp"
 
 typedef struct s_pipex
 {

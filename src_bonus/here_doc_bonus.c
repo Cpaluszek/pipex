@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 12:50:21 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:17:57 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #define HERE_DOC_ARG "here_doc"
 #define MIN_ARG_COUNT 5
 #define HERE_DOC_START "heredoc> "
-#define HERE_DOC_TMP_FILE ".heredoc.tmp"
 
+// Count arguments and check for here_doc parameter
 int	count_args(char *arg, t_pipex *pipex)
 {
 	pipex->here_doc = (arg
@@ -24,8 +24,7 @@ int	count_args(char *arg, t_pipex *pipex)
 	return (MIN_ARG_COUNT + pipex->here_doc);
 }
 
-// Note: what is unlink?
-// Todo: check write error ?
+// Read input from STDIN and write to temporary here_doc file
 void	here_doc(char *arg, t_pipex *pipex)
 {
 	int		file;
@@ -36,20 +35,18 @@ void	here_doc(char *arg, t_pipex *pipex)
 		print_perror_exit(FILE_ERROR);
 	while (1)
 	{
-		write(1, HERE_DOC_START, ft_strlen(HERE_DOC_START));
 		buffer = get_next_line(STDIN_FILENO);
 		if (!ft_strncmp(arg, buffer, ft_strlen(arg)))
 			break ;
-		write(file, buffer, ft_strlen(buffer));
+		if (write(file, buffer, ft_strlen(buffer)) == -1)
+		{
+			free(buffer);
+			print_perror_exit(WRITE_ERROR);
+		}
 		free(buffer);
 	}
 	free(buffer);
 	if (close(file) == -1)
 		print_perror_exit(CLOSE_ERROR);
 	pipex->in_file = open(HERE_DOC_TMP_FILE, O_RDONLY);
-	if (pipex->in_file == -1)
-	{
-		unlink(HERE_DOC_TMP_FILE);
-		print_perror_exit(FILE_ERROR);
-	}
 }

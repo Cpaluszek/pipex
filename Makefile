@@ -67,14 +67,14 @@ _WHITE			:=	\x1b[37m
 
 all: build_libs $(NAME)
 
-$(NAME): $(LIB_PATHS) $(OBJS)
-	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
-	@echo "> $(NAME) Done!\n"
-	
 build_libs:
 	@$(foreach lib, $(LIB_NAMES), \
 		@$(MAKE) $(lib); \
 	)
+
+$(NAME): $(LIB_PATHS) $(OBJS)
+	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
+	@echo "> $(NAME) Done!\n"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES)
 	@mkdir -p $(@D)
@@ -106,4 +106,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re build_libs
+.PHONY: all clean fclean re build_libs bonus

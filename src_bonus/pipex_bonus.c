@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 10:33:13 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:38:44 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,7 @@ int	main(int argc, char **argv, char **env)
 	get_output_file(argv[argc - 1], &pipex);
 	pipex.cmd_count = argc - 3 - pipex.here_doc;
 	pipex.pipes_count = 2 * (pipex.cmd_count - 1);
-	printf("cmds=%d - pipes=%d\n", pipex.cmd_count, pipex.pipes_count);
-	printf("in = %d - out = %d\n", pipex.in_file, pipex.out_file);
 	create_pipes(&pipex);
-	printf("pipes: ");
-	for (int i = 0; i < pipex.pipes_count; i++)
-	{
-		printf("%d ", pipex.pipes[i]);
-	}
-	printf("\n\n");
 	pipex.child_id = 0;
 	while (pipex.child_id < pipex.cmd_count)
 	{

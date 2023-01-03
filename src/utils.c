@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 11:24:18 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:13:41 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	free_split(char **split)
 }
 
 // Close both ends of the generated pipe
-// Todo: free allocs if close fail
 void	close_pipes(t_pipex *pipex)
 {
-	if (close(pipex->pipe[0]) == -1)
+	if (close(pipex->pipe[0]) == -1 | close(pipex->pipe[1]) == -1)
+	{
+		parent_free(pipex);
 		print_perror_exit(CLOSE_ERROR);
-	if (close(pipex->pipe[1]) == -1)
-		print_perror_exit(CLOSE_ERROR);
+	}
 }
 
 // Free all allocation in t_pipex

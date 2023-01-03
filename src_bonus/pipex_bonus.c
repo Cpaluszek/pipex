@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 14:13:24 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:25:51 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	create_pipes(t_pipex *pipex);
 
 // Note: why -1 on wait
+// Todo: wait not working for sleep()
 // Todo: makefile bonus relink?
 int	main(int argc, char **argv, char **env)
 {

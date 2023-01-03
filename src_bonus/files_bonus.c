@@ -6,20 +6,19 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:56:27 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 14:17:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:47:26 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 #include <fcntl.h>
 
-// Note: what is unlink?
 // Open input file, or manage here_doc
 void	get_input_file(char **argv, t_pipex *pipex)
 {
 	if (pipex->here_doc)
 	{
-		here_doc(argv[2], pipex);
+		here_doc(argv[2]);
 		pipex->in_file = open(HERE_DOC_TMP_FILE, O_RDONLY);
 		if (pipex->in_file == -1)
 		{

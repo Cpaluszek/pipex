@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:06:31 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 11:38:11 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:38:31 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	close_pipes(t_pipex *pipex)
 	}
 }
 
-// Todo: adapt function to bonus
 // Free all allocation in t_pipex
+// Close input and ouput files
+// if 1st param is here_doc unlink() will remove temp file
 void	parent_free(t_pipex *pipex)
 {
 	if (pipex->paths != NULL)
@@ -55,4 +56,6 @@ void	parent_free(t_pipex *pipex)
 		print_perror_exit(CLOSE_ERROR);
 	if (close(pipex->out_file) == -1)
 		print_perror_exit(CLOSE_ERROR);
+	if (pipex->here_doc)
+		unlink(HERE_DOC_TMP_FILE);
 }

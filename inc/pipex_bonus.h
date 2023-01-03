@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 14:16:05 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:36:45 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	file_error_exit(char *str);
 
 /*	Here_doc	*/
 int		count_args(char *arg, t_pipex *pipex);
-void	here_doc(char *arg, t_pipex *pipex);
+void	here_doc(char *arg);
 
 /*	Files	*/
 void	get_input_file(char **argv, t_pipex *pipex);

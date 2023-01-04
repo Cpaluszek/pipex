@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:56:27 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:06:36 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:17:40 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 static void	check_files(t_pipex *pipex, char *input_file, char *output_file);
 
 // Todo: test avec write permission only on output file
-// Todo: protect unlink
 // Open input file, or manage here_doc
 // Open or create the output file with truncation
 // If 1st param is here_doc append to the output file instead of truncate
@@ -44,7 +43,10 @@ static void	check_files(t_pipex *pipex, char *input_file, char *output_file)
 		close(pipex->out_file);
 		if (pipex->here_doc)
 		{
-			unlink(HERE_DOC_TMP_FILE);
+			if (unlink(HERE_DOC_TMP_FILE) == -1)
+			{
+				print_perror(UNLINK_ERROR);
+			}
 			print_perror_exit(FILE_ERROR);
 		}
 		file_error_exit(input_file);

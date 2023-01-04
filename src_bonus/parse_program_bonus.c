@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:01:39 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:23:05 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:17:09 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static char	**access_absolute_path(char **prog_with_args)
 {
 	if (access(prog_with_args[0], F_OK | X_OK) == 0)
 		return (prog_with_args);
-	print_perror_exit(prog_with_args[0]);
+	print_perror(prog_with_args[0]);
 	free_split(prog_with_args);
-	return (NULL);
+	exit (1);
 }
 
 // Check if we can find the program using env

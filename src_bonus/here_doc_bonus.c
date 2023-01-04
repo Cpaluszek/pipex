@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 14:36:28 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:15:38 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	manage_here_doc_input(char *arg, int file)
 	{
 		if (write(STDOUT_FILENO, HERE_DOC_SYM, ft_strlen(HERE_DOC_SYM)) == -1)
 		{
-			close(file);
+			if (close(file) == -1)
+				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);
 		}
 		buffer = get_next_line(STDIN_FILENO);
@@ -56,7 +57,8 @@ static void	manage_here_doc_input(char *arg, int file)
 		if (write(file, buffer, ft_strlen(buffer)) == -1)
 		{
 			free(buffer);
-			close(file);
+			if (close(file) == -1)
+				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);
 		}
 		free(buffer);

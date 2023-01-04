@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:03:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:12:49 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define EXEC_ERROR		"Execution Error"
 # define WRITE_ERROR	"Write Error"
 # define CMD_NOT_FOUND	"command not found\n"
+# define UNLINK_ERROR	"Unlink Error"
 
 # define PATH_PREFIX		"PATH="
 # define HERE_DOC_TMP_FILE	".heredoc.tmp"
@@ -56,6 +57,7 @@ void	child(t_pipex *pipex, char **argv);
 /*	Errors	*/
 void	print_error_exit(char *str);
 void	print_perror_exit(char *str);
+void	print_perror(char *str);
 void	file_error_exit(char *str);
 
 /*	Here_doc	*/
@@ -64,8 +66,6 @@ void	here_doc(char *arg);
 
 /*	Files	*/
 void	get_files(char **argv, char *output_file, t_pipex *pipex);
-// void	get_input_file(char **argv, t_pipex *pipex);
-// void	get_output_file(char *output_file, t_pipex *pipex);
 
 /*	Utils	*/
 void	parent_free(t_pipex *pipex);

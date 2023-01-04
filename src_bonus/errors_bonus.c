@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:09:05 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/02 09:54:54 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:12:18 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	print_perror_exit(char *str)
 {
 	perror(str);
 	exit(1);
+}
+
+// Print error message from errno
+void	print_perror(char *str)
+{
+	perror(str);
 }
 
 // Print custom error merssage when the program can't access file

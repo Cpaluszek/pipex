@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:37:32 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:59:33 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	dup_fds(int reading_end, int writing_end);
 static void	get_cmd(char *arg, t_pipex *pipex);
 
 // Create a child process using fork to execute command
-void	child(t_pipex *pipex, char **argv)
+void	child(t_pipex *pipex, char **argv, int argc)
 {
 	pipex->pid = fork();
 	if (pipex->pid == -1)
@@ -27,9 +27,29 @@ void	child(t_pipex *pipex, char **argv)
 	if (pipex->pid == 0)
 	{
 		if (pipex->child_id == 0)
+		{
+			if (pipex->in_file == -1)
+			{
+				close_pipes(pipex);
+				if (pipex->here_doc)
+				{
+					if (unlink(HERE_DOC_TMP_FILE) == -1)
+						print_perror(UNLINK_ERROR);
+					print_perror_exit(FILE_ERROR);
+				}
+				file_error_exit(argv[1]);
+			}
 			dup_fds(pipex->in_file, pipex->pipes[1]);
+		}
 		else if (pipex->child_id == pipex->cmd_count - 1)
+		{
+			if (pipex->out_file == -1)
+			{
+				close_pipes(pipex);
+				file_error_exit(argv[argc - 1]);
+			}
 			dup_fds(pipex->pipes[2 * pipex->child_id - 2], pipex->out_file);
+		}
 		else
 			dup_fds(pipex->pipes[2 * pipex->child_id - 2],
 				pipex->pipes[2 * pipex->child_id + 1]);

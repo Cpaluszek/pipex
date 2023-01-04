@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:19:00 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:00:17 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 	pipex.child_id = 0;
 	while (pipex.child_id < pipex.cmd_count)
 	{
-		child(&pipex, argv);
+		child(&pipex, argv, argc);
 		pipex.child_id++;
 	}
 	close_pipes(&pipex);

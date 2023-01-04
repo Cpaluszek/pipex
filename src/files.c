@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:16:19 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 16:27:41 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 09:19:00 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	open_files(t_pipex *pipex, char *input, char *output)
 		file_error_exit(input);
 	pipex->out_file = open(output, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (pipex->out_file == -1)
-		print_perror_exit(FILE_ERROR);
+		file_error_exit(output);
 }

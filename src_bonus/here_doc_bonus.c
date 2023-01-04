@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 13:20:29 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:09:57 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,31 @@ void	here_doc(char *arg)
 		print_perror_exit(CLOSE_ERROR);
 }
 
-static void	manage_here_doc_input(char *delimiter, int file)
+static void	manage_here_doc_input(char *delim, int file)
 {
-	char	*buffer;
+	char	*buff;
 
 	while (1)
 	{
 		if (write(STDOUT_FILENO, HERE_DOC_SYM, ft_strlen(HERE_DOC_SYM)) == -1)
 		{
-			free(delimiter);
+			free(delim);
 			if (close(file) == -1)
 				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);
 		}
-		buffer = get_next_line(STDIN_FILENO);
-		if (ft_strnstr(buffer, delimiter, ft_strlen(buffer)) == buffer)
+		buff = get_next_line(STDIN_FILENO);
+		if (buff == NULL || ft_strnstr(buff, delim, ft_strlen(buff)) == buff)
 			break ;
-		if (write(file, buffer, ft_strlen(buffer)) == -1)
+		if (write(file, buff, ft_strlen(buff)) == -1)
 		{
-			free(buffer);
-			free(delimiter);
+			free(buff);
+			free(delim);
 			if (close(file) == -1)
 				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);
 		}
-		free(buffer);
+		free(buff);
 	}
-	free(buffer);
+	free(buff);
 }

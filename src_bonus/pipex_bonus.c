@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 13:00:17 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:51:12 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	create_pipes(t_pipex *pipex);
 
+// Todo: remove debug flags from Makefile
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;

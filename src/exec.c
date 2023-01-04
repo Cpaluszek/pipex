@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:16:32 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 12:50:26 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:20:12 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 // Creating a child process using fork to execute the 1st command
 void	execute_first_program(t_pipex *pipex, char *input)
 {
-	int	exec_err;
-
 	pipex->pid1 = fork();
 	if (pipex->pid1 == -1)
 	{
+		close(pipex);
 		parent_free(pipex);
 		print_perror_exit(FORK_ERROR);
 	}
@@ -36,20 +35,18 @@ void	execute_first_program(t_pipex *pipex, char *input)
 			print_perror_exit(CLOSE_ERROR);
 		if (dup2(pipex->pipe[1], STDOUT_FILENO) == -1)
 			print_perror_exit(DUP2_ERROR);
-		exec_err = execve(pipex->first_cmd[0], pipex->first_cmd, pipex->env);
-		if (exec_err == -1)
-			print_perror_exit(EXEC_ERROR);
+		execve(pipex->first_cmd[0], pipex->first_cmd, pipex->env);
+		print_perror_exit(EXEC_ERROR);
 	}
 }
 
 // Creating a child process using fork to execute the 2nd command
 void	execute_second_program(t_pipex *pipex, char *output)
 {
-	int	exec_err;
-
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
 	{
+		close(pipex);
 		parent_free(pipex);
 		print_perror_exit(FORK_ERROR);
 	}
@@ -66,8 +63,7 @@ void	execute_second_program(t_pipex *pipex, char *output)
 			print_perror_exit(CLOSE_ERROR);
 		if (dup2(pipex->out_file, STDOUT_FILENO) == -1)
 			print_perror_exit(PIPE_ERROR);
-		exec_err = execve(pipex->second_cmd[0], pipex->second_cmd, pipex->env);
-		if (exec_err == -1)
-			print_perror_exit(EXEC_ERROR);
+		execve(pipex->second_cmd[0], pipex->second_cmd, pipex->env);
+		print_perror_exit(EXEC_ERROR);
 	}
 }

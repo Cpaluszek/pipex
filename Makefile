@@ -7,7 +7,7 @@ NAME			:=	pipex
 
 HEADERS			:=	inc
 HEADERS_FILES	:=	pipex.h
-HEADER_FILES_B	:=	pipex_bonus.h
+HEADERS_FILES_B	:=	pipex_bonus.h
 
 SRC_DIR			:=	src
 SRC_FILES		:=	pipex.c \
@@ -97,6 +97,7 @@ clean:
 		@$(MAKE) $(lib) clean; \
 	)
 	@rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR_B)
 
 fclean: clean
 	@$(foreach lib, $(LIB_NAMES), \

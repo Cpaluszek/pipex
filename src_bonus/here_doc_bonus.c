@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:00:03 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:15:38 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:20:29 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ int	count_args(char *arg, t_pipex *pipex)
 void	here_doc(char *arg)
 {
 	int		file;
+	char	*delimiter;
 
 	file = open(HERE_DOC_TMP_FILE, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file == -1)
 		print_perror_exit(FILE_ERROR);
-	manage_here_doc_input(arg, file);
+	delimiter = ft_strjoin(arg, "\n");
+	if (delimiter == NULL)
+		print_error_exit(ALLOC_ERROR);
+	manage_here_doc_input(delimiter, file);
+	free(delimiter);
 	if (close(file) == -1)
 		print_perror_exit(CLOSE_ERROR);
 }
 
-static void	manage_here_doc_input(char *arg, int file)
+static void	manage_here_doc_input(char *delimiter, int file)
 {
 	char	*buffer;
 
@@ -47,16 +52,18 @@ static void	manage_here_doc_input(char *arg, int file)
 	{
 		if (write(STDOUT_FILENO, HERE_DOC_SYM, ft_strlen(HERE_DOC_SYM)) == -1)
 		{
+			free(delimiter);
 			if (close(file) == -1)
 				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);
 		}
 		buffer = get_next_line(STDIN_FILENO);
-		if (!ft_strncmp(arg, buffer, ft_strlen(arg)))
+		if (ft_strnstr(buffer, delimiter, ft_strlen(buffer)) == buffer)
 			break ;
 		if (write(file, buffer, ft_strlen(buffer)) == -1)
 		{
 			free(buffer);
+			free(delimiter);
 			if (close(file) == -1)
 				print_perror(CLOSE_ERROR);
 			print_perror_exit(WRITE_ERROR);

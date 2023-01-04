@@ -44,7 +44,7 @@ OBJS_B			:=	$(SRC_FILES_B:%.c=$(BUILD_DIR_B)/%.o)
 # Compiler options
 CC				:=	cc
 CC_FLAGS		:=	-Wextra -Werror -Wall -O2
-DEBUG_FLAG		:=	-g3 #-fsanitize=address
+DEBUG_FLAG		:=	-g3 -fsanitize=address
 
 MAKE			:=	make -C
 
@@ -74,13 +74,13 @@ build_libs:
 	)
 
 $(NAME): $(LIB_PATHS) $(OBJS)
-	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
+	@$(CC) $(CC_FLAGS) $(OBJS) $(LIB_LD) $(LIBS) -o $@ 
 	@echo "> $(NAME) Done!\n"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES)
 	@mkdir -p $(@D)
 	@echo "$(_GREEN)compiling: $<$(_END)"
-	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
 
 bonus: build_libs $(LIB_PATHS) $(OBJS_B)
 	@$(CC) $(CC_FLAGS) $(OBJS_B) $(LIB_LD) $(LIBS) -o $(NAME)
@@ -89,7 +89,7 @@ bonus: build_libs $(LIB_PATHS) $(OBJS_B)
 $(BUILD_DIR_B)/%.o: $(SRC_DIR_B)/%.c $(LIB_PATHS) $(HEADERS)/$(HEADERS_FILES_B)
 	@mkdir -p $(@D)
 	@echo "$(_GREEN)compiling: $<$(_END)"
-	@$(CC) $(CC_FLAGS) $(DEBUG_FLAG) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) -I$(HEADERS) $(LIB_HEADERS) -c $< -o $@
 
 # clean commands
 clean:

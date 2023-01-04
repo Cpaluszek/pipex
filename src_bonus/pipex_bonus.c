@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 16:11:58 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:05:03 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	main(int argc, char **argv, char **env)
 	if (argc < count_args(argv[1], &pipex))
 		print_error_exit(ARG_ERROR);
 	pipex.env = env;
-	get_input_file(argv, &pipex);
-	get_output_file(argv[argc - 1], &pipex);
+	get_files(argv, argv[argc - 1], &pipex);
 	pipex.cmd_count = argc - 3 - pipex.here_doc;
 	pipex.pipes_count = 2 * (pipex.cmd_count - 1);
 	pipex.paths = get_paths(env);

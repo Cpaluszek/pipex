@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:39:50 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:13:41 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:52:58 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	parent_free(t_pipex *pipex)
 		free_split(pipex->first_cmd);
 	if (pipex->second_cmd != NULL)
 		free_split(pipex->second_cmd);
-	if (close(pipex->in_file) == -1)
+	if (pipex->in_file != -1 && close(pipex->in_file) == -1)
 		print_perror_exit(CLOSE_ERROR);
-	if (close(pipex->out_file) == -1)
+	if (pipex->out_file != -1 && close(pipex->out_file) == -1)
 		print_perror_exit(CLOSE_ERROR);
 }

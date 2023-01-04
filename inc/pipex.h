@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:32:58 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:50:39 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	**parse_program(char *prog_name, t_pipex *pipex);
 char	**get_paths(char **env);
 
 /*	Exec	*/
-void	execute_first_program(t_pipex *pipex);
-void	execute_second_program(t_pipex *pipex);
+void	execute_first_program(t_pipex *pipex, char *input);
+void	execute_second_program(t_pipex *pipex, char *output);
 
 /*	Errors	*/
 void	print_error_exit(char *str);

@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:20:10 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:50:49 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int argc, char **argv, char **env)
 		print_perror_exit(PIPE_ERROR);
 	}
 	get_cmds(&pipex, argv);
-	execute_first_program(&pipex);
-	execute_second_program(&pipex);
+	execute_first_program(&pipex, argv[1]);
+	execute_second_program(&pipex, argv[4]);
 	close_pipes(&pipex);
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);

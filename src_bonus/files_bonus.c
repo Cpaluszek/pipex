@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:56:27 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:17:40 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:21:03 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static void	check_files(t_pipex *pipex, char *input_file, char *output_file);
 
-// Todo: test avec write permission only on output file
 // Open input file, or manage here_doc
 // Open or create the output file with truncation
 // If 1st param is here_doc append to the output file instead of truncate
@@ -25,12 +24,13 @@ void	get_files(char **argv, char *output_file, t_pipex *pipex)
 	{
 		here_doc(argv[2]);
 		pipex->in_file = open(HERE_DOC_TMP_FILE, O_RDONLY);
-		pipex->out_file = open(output_file, O_CREAT | O_APPEND | O_RDWR, 0644);
+		pipex->out_file = open(output_file,
+				O_CREAT | O_APPEND | O_WRONLY, 0644);
 	}
 	else
 	{
 		pipex->in_file = open(argv[1], O_RDONLY);
-		pipex->out_file = open(output_file, O_CREAT | O_TRUNC | O_RDWR, 0644);
+		pipex->out_file = open(output_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	}
 	check_files(pipex, argv[1], output_file);
 }

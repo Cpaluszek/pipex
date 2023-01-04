@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:16:19 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:07:55 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:20:43 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	open_files(t_pipex *pipex, char *input, char *output)
 {
 	pipex->in_file = open(input, O_RDONLY);
-	pipex->out_file = open(output, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	pipex->out_file = open(output, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (pipex->in_file == -1)
 	{
 		close(pipex->out_file);

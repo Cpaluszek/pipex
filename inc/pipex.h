@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:47:45 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 12:50:39 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:23:26 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_pipex
 
 /* Find Program	*/
 char	**parse_program(char *prog_name, t_pipex *pipex);
-char	**get_paths(char **env);
+char	**get_paths(char **env, char *first_cmd, char *second_cmd);
 
 /*	Exec	*/
 void	execute_first_program(t_pipex *pipex, char *input);

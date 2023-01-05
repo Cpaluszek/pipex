@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:43:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/03 13:22:56 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:30:34 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**parse_program(char *prog_name, t_pipex *pipex)
 }
 
 // Search for PATH variable in environment
-char	**get_paths(char **env)
+char	**get_paths(char **env, char *cmd_one, char *cmd_two)
 {
 	char	**paths;
 	char	*path_env_var;
@@ -59,8 +59,14 @@ char	**get_paths(char **env)
 		i++;
 	}
 	if (i == 0)
+	{
+		if (ft_strchr(cmd_one, '/') != NULL && ft_strchr(cmd_two, '/') != NULL)
+			return (NULL);
 		print_error_exit(PATH_ERROR);
+	}
 	paths = ft_split(path_env_var, ':');
+	if (paths == NULL)
+		print_perror_exit(ALLOC_ERROR);
 	return (paths);
 }
 

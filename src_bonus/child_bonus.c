@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:29:22 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 15:29:23 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:49:00 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	child(t_pipex *pip, char **argv, int argc)
 	close_pipes(pip);
 	get_cmd(argv[2 + pip->here_doc + pip->child_id], pip);
 	execve(pip->cmd_args[0], pip->cmd_args, pip->env);
-	free_split(pip->cmd_args);
+	ft_free_split(pip->cmd_args);
 	print_perror_exit(EXEC_ERROR);
 }
 
@@ -90,8 +90,8 @@ static void	get_cmd(char *arg, t_pipex *pipex)
 	pipex->cmd_args = parse_program(arg, pipex);
 	if (pipex->cmd_args[0] == NULL)
 	{
-		free_split(pipex->paths);
-		free_split(pipex->cmd_args);
+		ft_free_split(pipex->paths);
+		ft_free_split(pipex->cmd_args);
 		exit(127);
 	}
 }

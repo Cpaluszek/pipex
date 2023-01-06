@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:01:39 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 10:17:09 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:48:41 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**get_paths(char **env)
 
 static void	alloc_error_exit(char **split)
 {
-	free_split(split);
+	ft_free_split(split);
 	print_error_exit(ALLOC_ERROR);
 }
 
@@ -77,7 +77,7 @@ static char	**access_absolute_path(char **prog_with_args)
 	if (access(prog_with_args[0], F_OK | X_OK) == 0)
 		return (prog_with_args);
 	print_perror(prog_with_args[0]);
-	free_split(prog_with_args);
+	ft_free_split(prog_with_args);
 	exit (1);
 }
 

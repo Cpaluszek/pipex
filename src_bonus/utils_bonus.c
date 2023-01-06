@@ -6,23 +6,11 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:06:31 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/04 13:02:22 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:48:21 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-
-// Free an array of strings
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-		free(split[i++]);
-	free(split);
-	split = NULL;
-}
 
 // Close both ends of the generated pipe
 void	close_pipes(t_pipex *pipex)
@@ -47,11 +35,11 @@ void	close_pipes(t_pipex *pipex)
 void	parent_free(t_pipex *pipex)
 {
 	if (pipex->paths != NULL)
-		free_split(pipex->paths);
+		ft_free_split(pipex->paths);
 	if (pipex->pipes != NULL)
 		free(pipex->pipes);
 	if (pipex->cmd_args != NULL)
-		free_split(pipex->cmd_args);
+		ft_free_split(pipex->cmd_args);
 	if (pipex->in_file != -1 && close(pipex->in_file) == -1)
 		print_perror(CLOSE_ERROR);
 	if (pipex->out_file != -1 && close(pipex->out_file) == -1)

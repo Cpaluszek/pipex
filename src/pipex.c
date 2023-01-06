@@ -6,7 +6,7 @@
 /*   By: cpalusze <cpalusze@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 12:48:00 by cpalusze          #+#    #+#             */
-/*   Updated: 2023/01/05 15:25:52 by cpalusze         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:45:27 by cpalusze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 	pipex.paths = get_paths(env, argv[2], argv[3]);
 	if (pipe(pipex.pipe) == -1)
 	{
-		free_split(pipex.paths);
+		ft_free_split(pipex.paths);
 		print_perror_exit(PIPE_ERROR);
 	}
 	get_cmds(&pipex, argv);
